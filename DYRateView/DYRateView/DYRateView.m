@@ -136,7 +136,6 @@ static NSString *DefaultEmptyStarImageFilename = @"StarEmpty.png";
 - (void)setRate:(CGFloat)rate {
     _rate = rate;
     [self setNeedsDisplay];
-    [self notifyDelegate];
 }
 
 - (void)setAlignment:(RateViewAlignment)alignment
@@ -172,10 +171,12 @@ static NSString *DefaultEmptyStarImageFilename = @"StarEmpty.png";
     for(int i = _numOfStars - 1; i > -1; i--) {
         if (location.x > _origin.x + i * (_fullStarImage.size.width + _padding) - _padding / 2.) {
             self.rate = i + 1;
+            [self notifyDelegate];
             return;
         }
     }
     self.rate = 0;
+    [self notifyDelegate];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
